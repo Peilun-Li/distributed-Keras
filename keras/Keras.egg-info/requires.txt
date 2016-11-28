@@ -1,0 +1,9 @@
+theano
+pyyaml
+six
+
+[h5py]
+h5py
+
+[visualize]
+pydot-ng

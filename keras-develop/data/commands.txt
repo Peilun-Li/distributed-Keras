@@ -1,0 +1,39 @@
+python build_image_data.py --train_directory="train" --validation_directory="validation" --output_directory="tfrecords" --labels_file="label.txt" --train_shards=10 --validation_shards=4 --num_threads=2
+
+python /Users/lipeilun/Documents/Keras-develop/keras-develop/data/build_image_data.py --train_direcotry="/Users/lipeilun/Documents/Keras-develop/keras-develop/data/train" --validation_directory="/Users/lipeilun/Documents/Keras-develop/keras-develop/data/validation" --output_directory="/Users/lipeilun/Documents/Keras-develop/keras-develop/data/testtf" --labels_file="/Users/lipeilun/Documents/Keras-develop/keras-develop/data/label.txt" --train_shards=5 --validation_shards=5 --num_threads=5
+python /Users/lipeilun/Documents/Keras-develop/keras-develop/data/build_image_data.py --train_directory="/Users/lipeilun/Documents/Keras-develop/keras-develop/data/train" --validation_directory="/Users/lipeilun/Documents/Keras-develop/keras-develop/data/validation" --output_directory="/Users/lipeilun/Documents/Keras-develop/keras-develop/data/testtf" --labels_file="/Users/lipeilun/Documents/Keras-develop/keras-develop/data/label.txt" --train_shards=5 --validation_shards=5 --num_threads=5
+
+
+python build_local_image_data.py /Users/lipeilun/Documents/Keras-develop/keras-develop/data/train /Users/lipeilun/Documents/Keras-develop/keras-develop/data/validation /Users/lipeilun/Documents/Keras-develop/keras-develop/data/testtf /Users/lipeilun/Documents/Keras-develop/keras-develop/data/label.txt 5 5 5
+
+python /home/lpl/Documents/keras-develop/keras-develop/build_local_image_data.py /home/lpl/Documents/keras-develop/keras-develop/data/train /home/lpl/Documents/keras-develop/keras-develop/data/validation /home/lpl/Documents/keras-develop/keras-develop/data/testtf /home/lpl/Documents/keras-develop/keras-develop/data/label.txt 5 5 5
+
+python /home/lpl/Documents/keras-develop/keras-develop/build_local_image_data.py /home/lpl/Documents/keras-develop/keras-develop/data/testtf2/raw_1/train /home/lpl/Documents/keras-develop/keras-develop/data/testtf2/raw_1/validation /home/lpl/Documents/keras-develop/keras-develop/data/testtf3 /home/lpl/Documents/keras-develop/keras-develop/data/label.txt 5 5 5
+
+python /home/lpl/Documents/keras-develop/keras-develop/build_local_image_data.py /home/lpl/Documents/keras-develop/keras-develop/data/testtf2/raw_0/train /home/lpl/Documents/keras-develop/keras-develop/data/testtf2/raw_0/validation /home/lpl/Documents/keras-develop/keras-develop/data/testtf2/0 /home/lpl/Documents/keras-develop/keras-develop/data/label.txt 5 5 5
+
+
+python worker_train_keras.py predefined_model.h5 data/tfrecords/0 100 resize [150,150,3] 2 300 10 20 categorical_crossentropy True 1 4 1 100 2
+python worker_train_keras.py predefined_model.h5 data/tfrecords/0 100 resize [150,150,3] 2 300 10 20 categorical_crossentropy True 1 4 1 100 2
+
+python /users/hzhang2/projects/tensorflow/keras-develop/master_start.py /users/hzhang2/projects/tensorflow/keras-develop/predefined_model.h5 /users/hzhang2/projects/tensorflow/keras-develop/data/train /users/hzhang2/projects/tensorflow/keras-develop/data/validation /users/hzhang2/projects/tensorflow/keras-develop/data/tfrecords /users/hzhang2/projects/tensorflow/keras-develop/data/label.txt 5 5 5 hzhang2 orca03.orca.pdl.cmu.edu,orca19.orca.pdl.cmu.edu 100 resize [150,150,3] 2 300 10 20 categorical_crossentropy 1 4 1 100 2
+python master_start.py /home/lpl/Documents/keras-develop/keras-develop/predefined_model.h5 /home/lpl/Documents/keras-develop/keras-develop/data/train /home/lpl/Documents/keras-develop/keras-develop/data/validation /home/lpl/Documents/keras-develop/keras-develop/data/tfrecords /home/lpl/Documents/keras-develop/keras-develop/data/label.txt 5 5 5 lpl localhost,localhost 100 resize [150,150,3] 2 300 10 20 categorical_crossentropy 1 4 1 100 2
+
+
+orca changes:
+
+install:
+sudo pip install scipy
+sudo pip install pyyaml --no-use-wheel
+sudo apt-get install -y libhdf5-serial-dev
+sudo pip install h5py
+sudo pip install keras --no-use-wheel
+sudo apt-get install -y build-essential libssl-dev libffi-dev python-dev
+sudo apt-get install -y python-cffi
+sudo pip install cryptography --no-use-wheel
+sudo pip install paramiko --no-use-wheel
+
+image_preprocessing v0.11 -> v0.10
+
+command:
+python /users/hzhang2/projects/tensorflow/keras-develop/master_start.py /users/hzhang2/projects/tensorflow/keras-develop/predefined_model.h5 /users/hzhang2/projects/tensorflow/keras-develop/data/train /users/hzhang2/projects/tensorflow/keras-develop/data/validation /users/hzhang2/projects/tensorflow/keras-develop/data/tfrecords /users/hzhang2/projects/tensorflow/keras-develop/data/label.txt 5 5 5 hzhang2 orca03.orca.pdl.cmu.edu,orca19.orca.pdl.cmu.edu 100 resize [150,150,3] 2 300 10 20 categorical_crossentropy 1 4 1 100 2
