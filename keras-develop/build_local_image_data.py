@@ -2,18 +2,17 @@ import os
 import subprocess
 import sys
 
-
+'''
+Each worker machine will call generate_tfrecords_file to build their part of tfrecords files
+'''
 def generate_build_image_data_command(train_directory, validation_directory, output_directory, labels_file,
                                       train_shards, validation_shards, num_threads):
-    #hyper-parameter:
-    #build_image_data_file_path = '/Users/lipeilun/Documents/Keras-develop/keras-develop/data/build_image_data.py'
     cur_dir_path = os.path.dirname(os.path.realpath(__file__))
     build_image_data_file_path = os.path.join(cur_dir_path, 'build_image_data.py')
 
     if train_shards % num_threads != 0 or validation_shards % num_threads != 0:
         print('Error: please make train_shards and validation_shards divisible by num_threads')
         exit(-1)
-
 
     command = 'python ' + build_image_data_file_path + ' --train_directory="' + train_directory + \
               '" --validation_directory="' + validation_directory + '" --output_directory="' + output_directory + \
@@ -34,10 +33,6 @@ def generate_tfrecords_file(command, output_directory):
         os.makedirs(output_directory)
 
     return subprocess.check_call(command, shell=True)
-
-
-
-
 
 if __name__ == '__main__':
     # arg[1]: train_directory
@@ -71,8 +66,6 @@ if __name__ == '__main__':
                                                 int(args[6]), int(args[7]))
     #return 0 if succeed
     generate_tfrecords_file(command, args[3])
-
-
 
     '''
     command = generate_build_image_data_command('/Users/lipeilun/Documents/Keras-develop/keras-develop/data/train',

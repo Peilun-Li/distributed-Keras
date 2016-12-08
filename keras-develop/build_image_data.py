@@ -367,7 +367,7 @@ def _find_image_files(data_dir, labels_file):
   texts = []
 
   # Leave label index 0 empty as a background class.
-  '''CHANGE'''
+  # Label index start from 1
   label_index = 1
 
   # Construct the list of JPEG files and labels.

@@ -6,7 +6,9 @@ from keras import backend as K
 from keras.objectives import *
 from keras.metrics import *
 
-
+'''
+An alternative way to do worker train, not used in this version.
+'''
 def worker_train(model_path, data_dir, batch_size, preprocess_operation,
                  image_size, num_classes, max_steps, objectives, optimizers,
                  learning_rate=0.01, labels_offset = 0, num_preprocess_threads=None, num_readers=1,

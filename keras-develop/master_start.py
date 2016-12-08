@@ -2,6 +2,19 @@ from master_data_process import *
 import paramiko
 import threading
 import ast
+import sys
+'''
+Master entry function
+'''
+outlock_master = threading.Lock()
+
+def line_buffered(f):
+    line_buf = ""
+    while not f.channel.exit_status_ready():
+        line_buf += f.read(1)
+        if line_buf.endswith('\n'):
+            yield line_buf
+            line_buf = ''
 
 def ssh_thread_start(command, server, username, password, output=False):
     pre_command = """
@@ -19,14 +32,22 @@ def ssh_thread_start(command, server, username, password, output=False):
 
 
     stdin, stdout, stderr = client.exec_command(pre_command + command)
+    """
     with outlock:
         #output = stdout.read()
         #print output
-        for line in iter(lambda:stdout.readline(256), ""):
-            if output:
-                print(line)
+        for line in iter(lambda:stdout.readline(), ""):
+            #if output:
+            if True:
+                print line
             else:
                 pass
+    """
+    for l in line_buffered(stdout):
+        outlock_master.acquire()
+        print l
+        sys.stdout.flush()
+        outlock_master.release()
     #if output:
     print stderr.read()
 
@@ -84,6 +105,18 @@ if __name__ == '__main__':
                      args[18], int(args[19]),
                      int(args[20]), int(args[21]), int(args[22]), int(args[23]))
     else:
+        '''
+        master_start('/home/lpl/Documents/keras-develop/keras-develop/resnet50.h5',
+                     "/home/lpl/Documents/dataset/ILSVRC2015_subsample/train",
+                     "/home/lpl/Documents/dataset/ILSVRC2015_subsample/val",
+                     "/home/lpl/Documents/dataset/ILSVRC2015_subsample/tfrecords",
+                     "/home/lpl/Documents/dataset/ILSVRC2015_subsample/imagenet_label.txt",
+                     50, 50, 5, "lpl", ["localhost"],
+                     16, 'resize', [224, 224, 3], 1000, 1000, 50, 100,
+                     'categorical_crossentropy', labels_offset=1,
+                     num_preprocess_threads=4, num_readers=1, examples_per_shard=200, input_queue_memory_factor=2)
+        exit(0)
+        '''
         '''
         master_start('/home/lpl/Documents/keras-develop/keras-develop/inception_v3.h5',
                      "/home/lpl/Documents/dataset/ILSVRC2015_subsample/train",

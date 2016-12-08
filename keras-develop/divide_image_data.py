@@ -2,7 +2,9 @@ import shutil
 import os
 import sys
 import random
-
+'''
+Master will call this function to divide image data for each worker
+'''
 def divide_image_data(train_directory, validation_directory, output_directory, labels_file, num_of_divide):
     raw_classes = os.listdir(train_directory)
     full_file_dict = {}

@@ -7,6 +7,9 @@ from keras.objectives import *
 from keras.metrics import *
 import numpy as np
 
+'''
+A sample model
+'''
 model = Sequential()
 model.add(Convolution2D(32, 3, 3, input_shape=(150, 150, 3)))
 model.add(Activation('relu'))

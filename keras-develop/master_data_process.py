@@ -6,7 +6,11 @@ from divide_image_data import *
 from build_local_image_data import *
 import time
 import threading
-
+'''
+Master will call master_data_process function to do:
+1. call divide_image_data function to divide image data for each worker
+2. call each worker's build_local_image_data function
+'''
 outlock = threading.Lock()
 
 

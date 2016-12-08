@@ -1,7 +1,9 @@
 import os
 from random import shuffle
 import shutil
-
+'''
+Subsample a toy imagenet dataset
+'''
 def subsample(input_path, output_path, num_train_subsample_each_class, num_val_subsample_each_class):
     input_train_path = os.path.join(input_path, 'train')
     # input_val_path = os.path.join(input_path, 'val')

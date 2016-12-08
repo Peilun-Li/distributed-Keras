@@ -9,6 +9,13 @@ import numpy as np
 import sys
 import ast
 import os
+from datetime import datetime
+import socket
+'''
+Train model on each worker
+'''
+def get_time():
+    return socket.gethostbyname(socket.gethostname()) + " " + datetime.now().strftime('%H:%M:%S')
 
 def worker_train(model_path, data_dir, batch_size, preprocess_operation,
                  image_size, num_classes, train_steps, val_stpes, val_interval,
@@ -56,13 +63,13 @@ def worker_train(model_path, data_dir, batch_size, preprocess_operation,
     with sess.as_default():
         for i in range(1, train_steps+1):
             train_x, train_y = sess.run([train_image_tensor, train_labels])
-            print model.train_on_batch(train_x, train_y)
+            print get_time(), model.train_on_batch(train_x, train_y)
             if i % val_interval == 0 and do_evaluation:
                 val_res = []
                 for j in range(val_stpes):
                     val_x, val_y = sess.run([val_image_tensor, val_labels])
                     val_res.append(model.test_on_batch(val_x, val_y))
-                print("val: ", np.mean(val_res, 0).tolist())
+                print get_time(), "val: ", np.mean(val_res, 0).tolist()
 
     cur_dir_path = os.path.dirname(os.path.realpath(__file__))
     save_path = os.path.join(cur_dir_path, 'trained_model.h5')
