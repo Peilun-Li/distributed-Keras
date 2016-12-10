@@ -4,6 +4,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 import os
+import scipy.misc as smp
 
 
 def batch_inputs(data_dir, batch_size, image_size, train, preprocess_operation, num_preprocess_threads=None,
@@ -113,9 +114,9 @@ def batch_inputs(data_dir, batch_size, image_size, train, preprocess_operation, 
                 example_serialized)
             '''image_preprocessing'''
             image = image_preprocessing(image_buffer, preprocess_operation, train, height, width, depth, thread_id)
-            images_and_labels.append([image, label_index])
+            images_and_labels.append([image, label_index, _])
 
-        images, label_index_batch = tf.train.batch_join(
+        images, label_index_batch, label_text = tf.train.batch_join(
             images_and_labels,
             batch_size=batch_size,
             capacity=2 * num_preprocess_threads * batch_size)
@@ -125,7 +126,7 @@ def batch_inputs(data_dir, batch_size, image_size, train, preprocess_operation, 
 
         # Display the training images in the visualizer.
         tf.image_summary('images', images)
-        return images, tf.reshape(label_index_batch, [batch_size])
+        return images, tf.reshape(label_index_batch, [batch_size]), tf.reshape(label_text, [batch_size])
 
 
 def parse_example_proto(example_serialized):
@@ -254,24 +255,45 @@ def decode_jpeg(image_buffer, scope=None):
         # and width of image is unknown at compile-time.
         image = tf.image.decode_jpeg(image_buffer, channels=3)
 
+            # print(len(image), len(image[0]), len(image[1]), len(image[2]))
+            # print(image)
+
         # After this point, all image pixels reside in [0,1)
         # until the very end, when they're rescaled to (-1, 1).  The various
         # adjust_* ops all require this range for dtype float.
         image = tf.image.convert_image_dtype(image, dtype=tf.float32)
+
         return image
 
 
 if __name__ == '__main__':
     sess = tf.Session()
-    images, labels = batch_inputs('data/tfrecords', 10, [150, 150, 3], True, 4, 1, 100, 2)
+    images, labels, texts = batch_inputs('/home/lpl/Documents/dataset/ILSVRC2015_subsample/tfrecords/0', 1, [150, 150, 3], True, 'resize', 1, 1, 100, 2)
+    #exit(0)
     print(images)
     print(labels)
     sess.run(tf.initialize_all_variables())
     tf.train.start_queue_runners(sess=sess)
     cnt = 1
-    while True:
+    #while True:
+    for i in range(1):
         print(cnt)
         cnt += 1
-        image, label = sess.run((images,labels))
-        print(len(image), len(image[0]), len(image[1]), len(image[2]))
-        print(label)
+        image, label, text = sess.run((images,labels, texts))
+        print(label, text)
+        print(image)
+        img = smp.toimage(image[0])
+        img.show()
+        '''
+        for i in range(10):
+            print(cnt)
+            cnt += 1
+            print(image)
+            ima = sess.run((image))
+            print(ima)
+
+            img = smp.toimage(ima)
+            img.show()
+        '''
+    #print(len(image), len(image[0]), len(image[1]), len(image[2]))
+    #print(image)

@@ -11,6 +11,7 @@ import ast
 import os
 from datetime import datetime
 import socket
+import scipy.misc as smp
 '''
 Train model on each worker
 '''
@@ -30,13 +31,14 @@ def worker_train(model_path, data_dir, batch_size, preprocess_operation,
 
     model = load_model(model_path)
     print("loading tensorflow data reading queues...")
-    train_image_tensor, train_labels_tensor = image_processing.batch_inputs(
+    train_image_tensor, train_labels_tensor, train_labels_text_tensor = image_processing.batch_inputs(
         data_dir, batch_size, image_size, True, preprocess_operation, num_preprocess_threads,
         num_readers, examples_per_shard, input_queue_memory_factor)
 
-    val_image_tensor, val_labels_tensor = image_processing.batch_inputs(
+    val_image_tensor, val_labels_tensor, test_labels_text_tensor = image_processing.batch_inputs(
         data_dir, batch_size, image_size, False, preprocess_operation, num_preprocess_threads,
         num_readers, examples_per_shard, input_queue_memory_factor)
+    tf.train.start_queue_runners(sess=sess)
 
     train_labels = train_labels_tensor
     val_labels = val_labels_tensor
@@ -59,7 +61,7 @@ def worker_train(model_path, data_dir, batch_size, preprocess_operation,
         print('No corresponding objectives %s' % objectives)
         exit(-1)
     print("training...")
-    tf.train.start_queue_runners(sess=sess)
+
     with sess.as_default():
         for i in range(1, train_steps+1):
             train_x, train_y = sess.run([train_image_tensor, train_labels])
@@ -111,7 +113,21 @@ if __name__ == '__main__':
                     args[10], args[11] == 'True', int(args[12]),
                      int(args[13]), int(args[14]), int(args[15]), int(args[16]))
     else:
+
         worker_train('predefined_model.h5', 'data/tfrecords/0',
                  100, 'resize', [150, 150, 3], 2, 300, 10, 20,
                  'categorical_crossentropy', do_evaluation=True, labels_offset=1,
                  num_preprocess_threads=4, num_readers=1, examples_per_shard=100, input_queue_memory_factor=2)
+
+        '''
+        worker_train('resnet50.h5', '/home/lpl/Documents/dataset/ILSVRC2015_subsample/tfrecords/0',
+                     1, 'resize', [224, 224, 3], 1000, 300, 10, 20,
+                     'categorical_crossentropy', do_evaluation=True, labels_offset=1,
+                     num_preprocess_threads=4, num_readers=1, examples_per_shard=100, input_queue_memory_factor=2)
+        '''
+        '''
+        worker_train('inception_v3.h5', '/home/lpl/Documents/dataset/ILSVRC2015_subsample/tfrecords/0',
+                     1, 'resize', [299, 299, 3], 1000, 300, 10, 20,
+                     'categorical_crossentropy', do_evaluation=True, labels_offset=1,
+                     num_preprocess_threads=4, num_readers=1, examples_per_shard=100, input_queue_memory_factor=2)
+        '''

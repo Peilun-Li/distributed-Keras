@@ -22,6 +22,7 @@ from keras.preprocessing import image
 from keras.utils.layer_utils import convert_all_kernels_in_model
 from keras.utils.data_utils import get_file
 from keras import backend as K
+from keras.optimizers import RMSprop
 
 
 TH_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/inception_v3_weights_th_dim_ordering_th_kernels.h5'
@@ -300,7 +301,8 @@ if __name__ == '__main__':
     print(K.image_dim_ordering())
     model = InceptionV3(include_top=True, weights='imagenet')
 
+    rms = RMSprop(lr=0.000001)
     model.compile(loss='categorical_crossentropy',
-                  optimizer='rmsprop',
+                  optimizer=rms,
                   metrics=['accuracy'])
     model.save('inception_v3.h5')

@@ -117,18 +117,18 @@ if __name__ == '__main__':
                      num_preprocess_threads=4, num_readers=1, examples_per_shard=200, input_queue_memory_factor=2)
         exit(0)
         '''
-        '''
+
         master_start('/home/lpl/Documents/keras-develop/keras-develop/inception_v3.h5',
                      "/home/lpl/Documents/dataset/ILSVRC2015_subsample/train",
                      "/home/lpl/Documents/dataset/ILSVRC2015_subsample/val",
                      "/home/lpl/Documents/dataset/ILSVRC2015_subsample/tfrecords",
                      "/home/lpl/Documents/dataset/ILSVRC2015_subsample/imagenet_label.txt",
                      50, 50, 5, "lpl", ["localhost"],
-                     16, 'resize', [299, 299, 3], 1000, 1000, 50, 100,
+                     4, 'resize', [299, 299, 3], 1000, 1000, 50, 100,
                      'categorical_crossentropy', labels_offset=1,
                      num_preprocess_threads=4, num_readers=1, examples_per_shard=200, input_queue_memory_factor=2)
         exit(0)
-        '''
+
 
         master_start('/home/lpl/Documents/keras-develop/keras-develop/predefined_model.h5',
                  "/home/lpl/Documents/keras-develop/keras-develop/data/train",

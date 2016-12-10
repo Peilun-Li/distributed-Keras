@@ -18,7 +18,7 @@ from keras.preprocessing import image
 import keras.backend as K
 from keras.utils.layer_utils import convert_all_kernels_in_model
 from keras.utils.data_utils import get_file
-
+from keras.optimizers import RMSprop
 
 TH_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_th_dim_ordering_th_kernels.h5'
 TF_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels.h5'
@@ -231,7 +231,8 @@ if __name__ == '__main__':
     print(K.image_dim_ordering())
     model = ResNet50(include_top=True, weights='imagenet')
 
+    rms = RMSprop(lr=0.000001)
     model.compile(loss='categorical_crossentropy',
-                  optimizer='rmsprop',
+                  optimizer=rms,
                   metrics=['accuracy'])
     model.save('resnet50.h5')
