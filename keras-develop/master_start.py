@@ -124,7 +124,7 @@ if __name__ == '__main__':
                      "/home/lpl/Documents/dataset/ILSVRC2015_subsample/tfrecords",
                      "/home/lpl/Documents/dataset/ILSVRC2015_subsample/imagenet_label.txt",
                      50, 50, 5, "lpl", ["localhost"],
-                     4, 'resize', [299, 299, 3], 1000, 1000, 50, 100,
+                     16, 'resize', [299, 299, 3], 1000, 1000, 50, 100,
                      'categorical_crossentropy', labels_offset=1,
                      num_preprocess_threads=4, num_readers=1, examples_per_shard=200, input_queue_memory_factor=2)
         exit(0)
