@@ -18,8 +18,8 @@ sudo apt-get install -y python-cffi
 sudo pip install cryptography --no-use-wheel
 sudo pip install paramiko --no-use-wheel
 
-#cd /users/hzhang2/projects/tensorflow/keras-develop/keras
-#sudo python setup.py install
+cd /users/hzhang2/projects/tensorflow/keras-develop/keras
+sudo python setup.py install
 
 2. Login to gatekeeper or the master node [master node is the first ip/address in the following command, i.e., h0 in orca]:
 
