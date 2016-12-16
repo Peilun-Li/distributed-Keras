@@ -26,7 +26,7 @@ master_start(predefined_keras_model_path, train_directory, validation_directory,
 
 - batch_size: training and validation batch size
 
-- preprocess_operation: currently support 'resize' and 'crop'. Note that in this demo only 'resize' works (because the demo uses v0.10 tensorflow, and those operations are developed in v0.11 tensorflow, and for the 'crop' method, there's some changes on tensorflow api between v0.10 and v0.11). If error occur when using 'resize', please check line 226 of image_processing.py. In v0.10 it should be image = tf.image.resize_images(image, height, width), and in v0.11 it should be image = tf.image.resize_images(image, (height, width))
+- preprocess_operation: currently support 'resize' and 'crop'. Note that in this demo only 'resize' works (because the demo uses v0.10 tensorflow, and those operations are developed in v0.11 tensorflow, and for the 'crop' method, there's some changes on tensorflow api between v0.10 and v0.11). If errors occur when using 'resize', please check line 226 of image_processing.py. In v0.10 it should be image = tf.image.resize_images(image, height, width), and in v0.11 it should be image = tf.image.resize_images(image, (height, width))
 
 - image_size: [height, width, channels]
 
