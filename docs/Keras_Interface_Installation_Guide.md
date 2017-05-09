@@ -2,7 +2,7 @@
 
 ## Obtaining Keras Interface
 
-Keras Interface is a group of Python scripts. You can get it from [here](https://github.com/Hwhitetooth/Poseidon-TensorFlow/tree/d0.10-keras/keras-develop).
+Keras Interface is a group of Python scripts. You can get it from [here](https://github.com/Peilun-Li/Keras-develop/tree/master/keras-develop).
 
 If you are using Orca, you can find the Keras Interface from
 ```
@@ -17,6 +17,7 @@ You can install Poseidon-TensorFlow following the steps [here](https://github.co
 cd /users/hzhang2/projects/tensorflow/tf-keras/_python_build/
 sudo python setup.py develop
 ```
+If you can't get Poseidon-TensorFlow, you can just use a normal version (tf v0.10 is used to develop this interface).
 
 ## Installing Dependencies
 
