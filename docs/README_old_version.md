@@ -1,10 +1,12 @@
 # Keras-develop
+This doc is for Orca installation
+
 Usage:
 
 0. Swap in the experiment poseidon-tf-keras, wait until the startup script finishes, approximately 10 minutes. [it seems that the startup script can't pip install, so we need to install some packages mannually for each node, see step 1.]
 
-1. For each node, login and run following [ssh hzhang2@orca12.orca.pdl.cmu.edu, change 12 to node num]:
-
+1. For each node, login and run following [`ssh hzhang2@orca12.orca.pdl.cmu.edu`, change 12 to node num]:
+```
 cd ~/projects/tensorflow/tf-keras/_python_build/
 sudo python setup.py develop
 
@@ -20,17 +22,20 @@ sudo pip install paramiko --no-use-wheel
 
 cd /users/hzhang2/projects/tensorflow/keras-develop/keras
 sudo python setup.py install
+```
 
 2. Login to gatekeeper or the master node [master node is the first ip/address in the following command, i.e., h0 in orca]:
 
+```
 cd ~/projects/tensorflow/keras-develop
 bash run-poseidon-keras.sh 2 start keras
+```
 
+3. For master node, run the demo [change `orca35.orca.pdl.cmu.edu,orca15.orca.pdl.cmu.edu` in the command to corresponding node address, note that the first address needs to be the master node, i.e., h0 in orca]:
 
-3. For master node, run the demo [change orca35.orca.pdl.cmu.edu,orca15.orca.pdl.cmu.edu in the command to corresponding node address, note that the first address needs to be the master node, i.e., h0 in orca]:
-
+```
 python /users/hzhang2/projects/tensorflow/keras-develop/master_start.py /users/hzhang2/projects/tensorflow/keras-develop/predefined_model.h5 /users/hzhang2/projects/tensorflow/keras-develop/data/train /users/hzhang2/projects/tensorflow/keras-develop/data/validation /users/hzhang2/projects/tensorflow/keras-develop/data/tfrecords /users/hzhang2/projects/tensorflow/keras-develop/data/label.txt 5 5 5 hzhang2 orca35.orca.pdl.cmu.edu,orca15.orca.pdl.cmu.edu 100 resize [150,150,3] 2 300 10 20 categorical_crossentropy 1 4 1 100 2
-
+```
 
 Notes:
 
