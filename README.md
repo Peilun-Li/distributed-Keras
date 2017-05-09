@@ -10,6 +10,6 @@ docs/ More documents for installation and APIs.
 
 kears/ A Keras version that is used for developing this interface. You can also use the lastest Keras but there maybe inconsistency issues.
 
-keras-develop/ inteface codes, including sample data.
+keras-develop/ Interface codes, including sample data.
 
-other/ some testing code for debug, unused for the release version.
+other/ Some testing code for debug, unused for the release version.
