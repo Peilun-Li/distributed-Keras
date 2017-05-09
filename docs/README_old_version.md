@@ -1,5 +1,5 @@
 # Keras-develop
-This doc is for Orca installation
+This doc is a brief guide to install this Keras interface in Orca.
 
 Usage:
 
